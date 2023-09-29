@@ -34,7 +34,7 @@ if ($method == 'GET') {
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
 } else if ($method == 'PUT') {
-    curl_setopt($ch, CURLOPT_PUT, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
 } else if ($method == 'DELETE') {
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
@@ -45,10 +45,11 @@ curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers_native);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+curl_setopt($ch, CURLOPT_TIMEOUT , 60);
 
 $result = curl_exec($ch);
 
-curl_close($ch );
+curl_close($ch);
 
 $response = explode("\r\n\r\n", $result, 2);
 $header_lines = explode("\r\n", $response[0]);
